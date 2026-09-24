@@ -13,6 +13,6 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 @use '@/assets/styles/app.scss';
 </style>
