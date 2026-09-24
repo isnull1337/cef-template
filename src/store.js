@@ -2,10 +2,7 @@ import { reactive } from 'vue';
 
 export const interfaceState = reactive({
     visible: {
-        hud: true,
-        menu: false,
-        inventory: false,
-        chat: true
+        hud: true
     }
 });
 
