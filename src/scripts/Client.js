@@ -1,12 +1,17 @@
-import { interfaceManager } from './store.js';
+import { interfaceManager, playerStatsManager } from '@/scripts/store.js';
 
 class Client {
     constructor() {
+        if(window.cef) {
+            window.cef.emit("game:hud:setComponentVisible", "interface", false);
+            window.cef.emit("game:hud:setComponentVisible", "radar", true);
+            window.cef.emit("game:data:pollPlayerStats", true, 50);
+        }
         this.setupEventListeners();
     }
 
     setupEventListeners() {
-        if(window.cef) {
+        if (window.cef) {
             window.cef.on('showInterface', (...interfaces) => {
                 interfaceManager.show(...interfaces);
             });
@@ -16,31 +21,35 @@ class Client {
             window.cef.on('toggleInterface', (...interfaces) => {
                 interfaceManager.toggle(...interfaces);
             });
+
+            window.cef.on("game:data:playerStats", (hp, max_hp, arm, breath, wanted, weapon, ammo, max_ammo, money, speed) => {
+                console.log(`Received player stats: hp=${hp}, max_hp=${max_hp}, arm=${arm}, breath=${breath}, wanted=${wanted}, weapon=${weapon}, ammo=${ammo}, max_ammo=${max_ammo}, money=${money}, speed=${speed}`);
+                playerStatsManager.update(hp, max_hp, arm, breath, wanted, weapon, ammo, max_ammo, money, speed);
+            });
         }
     }
 
     sendEvent(event, ...args) {
-        if(window.cef) {
+        if (window.cef) {
             return window.cef.emit(event, ...args);
         }
         else console.log(`Event: ${event} | Args: ${args}`);
     }
 
     enableCursor() {
-        if(window.cef) {
+        if (window.cef) {
             return window.cef.set_focus(true);
         }
         else console.log(`Cursor enabled`);
     }
 
     disableCursor() {
-        if(window.cef) {
+        if (window.cef) {
             return window.cef.set_focus(false);
         }
         else console.log(`Cursor disabled`);
     }
 
-    // Методы-прокси для удобства использования из браузера
     showInterface(...interfaces) {
         interfaceManager.show(...interfaces);
     }

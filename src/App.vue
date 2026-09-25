@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { interfaceState } from '@/store.js';
+import { interfaceState } from '@/scripts/store.js';
 import hud from './components/hud.vue'
 
 export default {
