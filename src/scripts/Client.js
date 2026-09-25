@@ -15,15 +15,16 @@ class Client {
             window.cef.on('showInterface', (...interfaces) => {
                 interfaceManager.show(...interfaces);
             });
+
             window.cef.on('hideInterface', (...interfaces) => {
                 interfaceManager.hide(...interfaces);
             });
+
             window.cef.on('toggleInterface', (...interfaces) => {
                 interfaceManager.toggle(...interfaces);
             });
 
             window.cef.on("game:data:playerStats", (hp, max_hp, arm, breath, wanted, weapon, ammo, max_ammo, money, speed) => {
-                console.log(`Received player stats: hp=${hp}, max_hp=${max_hp}, arm=${arm}, breath=${breath}, wanted=${wanted}, weapon=${weapon}, ammo=${ammo}, max_ammo=${max_ammo}, money=${money}, speed=${speed}`);
                 playerStatsManager.update(hp, max_hp, arm, breath, wanted, weapon, ammo, max_ammo, money, speed);
             });
         }
