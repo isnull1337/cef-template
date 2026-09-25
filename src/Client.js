@@ -28,14 +28,14 @@ class Client {
 
     enableCursor() {
         if(window.cef) {
-            return window.cef.set_cursor(true);
+            return window.cef.set_focus(true);
         }
         else console.log(`Cursor enabled`);
     }
 
     disableCursor() {
         if(window.cef) {
-            return window.cef.set_cursor(false);
+            return window.cef.set_focus(false);
         }
         else console.log(`Cursor disabled`);
     }

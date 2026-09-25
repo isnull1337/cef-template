@@ -2,7 +2,7 @@ import { reactive } from 'vue';
 
 export const interfaceState = reactive({
     visible: {
-        hud: true
+        hud: false
     }
 });
 
